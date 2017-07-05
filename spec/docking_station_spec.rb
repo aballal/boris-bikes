@@ -44,20 +44,12 @@ describe DockingStation do
       expect(subject.bikes).to eq all_bikes
     end
 
-#Replicated the 'docks a bike' and tried a double
-=begin
-    it 'docks a bike' do
-      bike_double = double(:bike)
-      all_bikes = subject.dock(bike_double)
-      expect(subject.bikes[0]).to be_working
-    end
-=end
     it 'can store up to N bikes' do
       expect( subject.capacity.times { subject.dock(Bike.new)}).to eq subject.capacity
     end
 
     it 'returns error when more than N bikes' do
-      expect { (subject.capacity+1).times {subject.dock(Bike.new)}}.to raise_error "Docking station full"
+      expect { (subject.capacity+1).times {subject.dock(Bike.new)}}.to raise_error "Docking station is full"
     end
 
     it "accepts broken bikes" do
