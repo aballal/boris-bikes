@@ -13,6 +13,16 @@ describe DockingStation do
       expect(subject.release_bike).to eq bike
     end
 
+#Added 'releases working bikes' for testing doubles
+    let(:bike) {double(:bike)}
+
+    it 'releases working bikes' do
+      allow(bike).to receive(:working?).and_return(true)
+      subject.dock(bike)
+      released_bike = subject.release_bike
+      expect(released_bike).to be_working
+    end
+
     it "doesn't release broken bikes" do
       broken_bike = Bike.new
       broken_bike.broken
@@ -26,6 +36,7 @@ describe DockingStation do
   it { is_expected.to respond_to(:bikes)}
 
   describe '#dock' do
+
     it 'docks a bike' do
       all_bikes = []
       bike = Bike.new
@@ -33,6 +44,14 @@ describe DockingStation do
       expect(subject.bikes).to eq all_bikes
     end
 
+#Replicated the 'docks a bike' and tried a double
+=begin
+    it 'docks a bike' do
+      bike_double = double(:bike)
+      all_bikes = subject.dock(bike_double)
+      expect(subject.bikes[0]).to be_working
+    end
+=end
     it 'can store up to N bikes' do
       expect( subject.capacity.times { subject.dock(Bike.new)}).to eq subject.capacity
     end
