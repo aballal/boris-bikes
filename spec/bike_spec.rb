@@ -8,7 +8,7 @@ describe Bike do
   end
 
   it "can be set to not working" do
-    subject.broken
+    subject.report_broken
     expect(subject.working?).to eq false
   end
 

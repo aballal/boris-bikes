@@ -4,7 +4,7 @@ describe DockingStation do
 
   describe '#release_bike' do
     it "doesn't give out a bike if there's none" do
-      expect { subject.release_bike }.to raise_error "bike not present"
+      expect { subject.release_bike }.to raise_error "No bikes available"
     end
 
     it "doesn't raise the error when we have a bike" do
@@ -25,9 +25,9 @@ describe DockingStation do
 
     it "doesn't release broken bikes" do
       broken_bike = Bike.new
-      broken_bike.broken
+      broken_bike.report_broken
       subject.dock(broken_bike)
-      expect { subject.release_bike }.to raise_error "no working bikes available"
+      expect { subject.release_bike }.to raise_error "No working bikes available"
     end
   end
 
@@ -62,7 +62,7 @@ describe DockingStation do
 
     it "accepts broken bikes" do
       broken_bike = Bike.new
-      broken_bike.broken
+      broken_bike.report_broken
       expect(subject.dock(broken_bike)).to eq [broken_bike]
     end
   end
