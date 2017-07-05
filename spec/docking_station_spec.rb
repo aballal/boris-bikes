@@ -16,19 +16,16 @@ describe DockingStation do
       expect { subject.release_bike }.to raise_error "No bikes available"
     end
 
-    it 'releases a bike when docking station has a bike' do
+    it 'releases the bike when docking station has a bike' do
       allow(bike).to receive(:working?).and_return(true)
-      #bike = Bike.new
       subject.dock(bike)
       expect(subject.release_bike).to eq bike
     end
 
-    #Added 'releases working bikes' for testing doubles
     it 'releases working bikes' do
       allow(bike).to receive(:working?).and_return(true)
       subject.dock(bike)
-      released_bike = subject.release_bike
-      expect(released_bike).to be_working
+      expect(subject.release_bike).to be_working
     end
 
     it "doesn't release broken bikes" do
