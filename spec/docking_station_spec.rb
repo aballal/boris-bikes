@@ -10,19 +10,20 @@ describe DockingStation do
   it { is_expected.to respond_to(:dock).with(1).argument }
 
   describe '#release_bike' do
-    it "doesn't give out a bike if there's none" do
+    let(:bike) {double(:bike)}
+
+    it 'does not release a bike when docking station is empty' do
       expect { subject.release_bike }.to raise_error "No bikes available"
     end
 
-    it "doesn't raise the error when we have a bike" do
-      bike = Bike.new
+    it 'releases a bike when docking station has a bike' do
+      allow(bike).to receive(:working?).and_return(true)
+      #bike = Bike.new
       subject.dock(bike)
       expect(subject.release_bike).to eq bike
     end
 
-#Added 'releases working bikes' for testing doubles
-    let(:bike) {double(:bike)}
-
+    #Added 'releases working bikes' for testing doubles
     it 'releases working bikes' do
       allow(bike).to receive(:working?).and_return(true)
       subject.dock(bike)
