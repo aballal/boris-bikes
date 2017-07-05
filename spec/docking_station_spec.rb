@@ -40,6 +40,12 @@ describe DockingStation do
     it 'returns error when more than N bikes' do
       expect { (subject.capacity+1).times {subject.dock(Bike.new)}}.to raise_error "Docking station full"
     end
+
+    it "accepts broken bikes" do
+      broken_bike = Bike.new
+      broken_bike.broken
+      expect(subject.dock(broken_bike)).to eq [broken_bike]
+    end
   end
 
   describe '#new' do
