@@ -1,6 +1,13 @@
 require 'docking_station'
+
 describe DockingStation do
+  it { is_expected.to respond_to(:bikes)}
+
+  it { is_expected.to respond_to(:capacity)}
+
   it { is_expected.to respond_to :release_bike}
+
+  it { is_expected.to respond_to(:dock).with(1).argument }
 
   describe '#release_bike' do
     it "doesn't give out a bike if there's none" do
@@ -30,10 +37,6 @@ describe DockingStation do
       expect { subject.release_bike }.to raise_error "No working bikes available"
     end
   end
-
-  it { is_expected.to respond_to(:dock).with(1).argument }
-
-  it { is_expected.to respond_to(:bikes)}
 
   describe '#dock' do
 
