@@ -5,7 +5,7 @@ describe Bike do
 
   it {is_expected.to be_working}
 
-  it "can be set to not working" do
+  it 'can be reported broken' do
     subject.report_broken
     expect(subject.working?).to eq false
   end
