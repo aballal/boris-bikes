@@ -12,6 +12,14 @@ class DockingStation
 
   def release_bike
     fail "bike not present" if empty?
+    #bikes.shift
+    i = 0
+    until bikes[0].working? || i == bikes.count
+      bikes.rotate
+      i += 1
+    end
+
+    fail "no working bikes available" if i == bikes.count
     bikes.shift
   end
 
