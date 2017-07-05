@@ -7,12 +7,23 @@ class DockingStation
   end
 
   def release_bike
-    fail "bike not present" if @bike.empty?
+    fail "bike not present" if empty?
     @bike.shift
   end
 
   def dock (bike)
-    fail "Docking station full" if @bike.count == 20
+    fail "Docking station full" if full?
     @bike << bike
   end
+
+  private
+
+  def full?
+    @bike.count == 20 ? true : false
+  end
+
+  def empty?
+    @bike.empty?
+  end
+
 end
