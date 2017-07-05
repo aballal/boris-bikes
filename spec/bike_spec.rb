@@ -3,9 +3,7 @@ require 'bike'
 describe Bike do
   it {is_expected.to respond_to :working?}
 
-  it "is woring when it is new" do
-    expect(subject.working?).to eq true
-  end
+  it {is_expected.to be_working}
 
   it "can be set to not working" do
     subject.report_broken
