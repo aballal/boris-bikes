@@ -1,4 +1,5 @@
 require_relative 'bike'
+require_relative 'garage'
 
 class DockingStation
   DEFAULT_CAPACITY = 20
@@ -22,7 +23,8 @@ class DockingStation
   end
 
   def report_broken_bikes
-    true
+    broken_bikes_count = bikes.reject{|bike| bike.working?}.count
+    GARAGE.broken_bikes_reported(self,broken_bikes_count)
   end
 
   private

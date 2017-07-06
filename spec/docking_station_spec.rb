@@ -1,4 +1,5 @@
 require 'docking_station'
+require 'garage'
 
 describe DockingStation do
   let(:bike) {double(:bike)}
@@ -76,11 +77,13 @@ describe DockingStation do
 
   describe '#report_broken_bikes' do
     it 'report broken bikes' do
-      bike = Bike.new
-      bike.report_broken
-      subject.dock(bike)
-      expect(subject.report_broken_bikes).to eq true
-      
+      2.times do
+        bike = Bike.new
+        bike.report_broken
+        subject.dock(bike)
+      end
+      subject.report_broken_bikes
+      expect(GARAGE.broken_bikes[subject]).to eq 2
     end
   end
 
