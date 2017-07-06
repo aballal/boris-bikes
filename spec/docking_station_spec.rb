@@ -55,9 +55,9 @@ describe DockingStation do
     end
 
     it "accepts broken bikes" do
-      broken_bike = Bike.new
-      broken_bike.report_broken
-      expect(subject.dock(broken_bike)).to eq [broken_bike]
+      allow(bike).to receive_message_chain(:report_broken,:working) {false}
+      bike.report_broken
+      expect(subject.dock(bike)).to eq [bike]
     end
   end
 
