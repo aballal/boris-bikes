@@ -74,4 +74,14 @@ describe DockingStation do
     end
   end
 
+  describe '#report_broken_bikes' do
+    it 'report broken bikes' do
+      bike = Bike.new
+      bike.report_broken
+      subject.dock(bike)
+      expect(subject.report_broken_bikes).to eq true
+      
+    end
+  end
+
 end
