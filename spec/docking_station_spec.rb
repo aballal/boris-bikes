@@ -80,10 +80,11 @@ describe DockingStation do
   describe '#report_broken_bikes' do
     it 'report broken bikes' do
       2.times do
-        bike = Bike.new
+        allow(bike).to receive_message_chain(:report_broken, :working) {false}
         bike.report_broken
         subject.dock(bike)
       end
+      allow(bike).to receive(:working?).and_return(false)
       subject.report_broken_bikes
       expect(GARAGE.broken_bikes[subject]).to eq 2
     end
