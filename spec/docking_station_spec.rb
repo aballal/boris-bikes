@@ -18,13 +18,13 @@ describe DockingStation do
     end
 
     it 'releases the bike when docking station has a bike' do
-      allow(bike).to receive(:working?).and_return(true)
+      bike = double(:bike, :working? => true)
       subject.dock(bike)
       expect(subject.release_bike).to eq bike
     end
 
     it 'releases working bikes' do
-      allow(bike).to receive(:working?).and_return(true)
+      bike = double(:bike, :working? => true)
       subject.dock(bike)
       expect(subject.release_bike).to be_working
     end
