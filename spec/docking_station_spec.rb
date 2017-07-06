@@ -4,13 +4,15 @@ require 'garage'
 describe DockingStation do
   let(:bike) {double(:bike)}
 
-  it { is_expected.to respond_to(:bikes)}
+  it { is_expected.to respond_to(:bikes) }
 
-  it { is_expected.to respond_to(:capacity)}
+  it { is_expected.to respond_to(:capacity) }
 
-  it { is_expected.to respond_to :release_bike}
+  it { is_expected.to respond_to :release_bike }
 
   it { is_expected.to respond_to(:dock).with(1).argument }
+
+  it { is_expected.to respond_to(:report_broken_bikes) }
 
   describe '#release_bike' do
 
@@ -30,7 +32,7 @@ describe DockingStation do
       expect(subject.release_bike).to be_working
     end
 
-    it "doesn't release broken bikes" do
+    it 'does not release broken bikes' do
       allow(bike).to receive_message_chain(:report_broken, :working) {false}
       bike.report_broken
       subject.dock(bike)
@@ -55,7 +57,7 @@ describe DockingStation do
       expect { (subject.capacity+1).times {subject.dock(bike)}}.to raise_error "Docking station is full"
     end
 
-    it "accepts broken bikes" do
+    it 'accepts broken bikes' do
       allow(bike).to receive_message_chain(:report_broken,:working) {false}
       bike.report_broken
       expect(subject.dock(bike)).to eq [bike]
