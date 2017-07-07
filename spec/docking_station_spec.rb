@@ -12,7 +12,7 @@ describe DockingStation do
 
   it { is_expected.to respond_to(:dock).with(1).argument }
 
-  it { is_expected.to respond_to(:report_broken_bikes) }
+  it { is_expected.to respond_to(:report_broken_bikes_to_garage).with(1).argument }
 
   describe '#release_bike' do
 
@@ -85,8 +85,9 @@ describe DockingStation do
         subject.dock(bike)
       end
       allow(bike).to receive(:working?).and_return(false)
-      subject.report_broken_bikes
-      expect(GARAGE.broken_bikes[subject]).to eq 2
+      garage = Garage.new
+      subject.report_broken_bikes_to_garage(garage)
+      expect(garage.broken_bikes_report[subject]).to eq 2
     end
   end
 

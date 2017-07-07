@@ -22,9 +22,9 @@ class DockingStation
     bikes << bike
   end
 
-  def report_broken_bikes
+  def report_broken_bikes_to_garage(garage)
     broken_bikes_count = bikes.reject{|bike| bike.working?}.count
-    GARAGE.broken_bikes_reported(self,broken_bikes_count)
+    garage.receive_broken_bikes_report(self,broken_bikes_count)
   end
 
   private
