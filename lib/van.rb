@@ -1,7 +1,8 @@
 class Van
   attr_reader :capacity
 
-  def transport(source,destination,count)
+  def collect_broken_bikes(docking_station,garage,bikes_count)
+
   end
 
 end

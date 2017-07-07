@@ -22,9 +22,10 @@ class DockingStation
     bikes << bike
   end
 
-  def report_broken_bikes_to_garage(garage)
-    broken_bikes_count = bikes.reject{|bike| bike.working?}.count
-    garage.receive_broken_bikes_report(self,broken_bikes_count)
+  def dispatch_broken_bikes(van)
+    broken_bikes = []
+    bikes.each.with_index {|bike,i| broken_bikes << bikes.delete_at(i) unless bike.working?}
+    broken_bikes
   end
 
   private

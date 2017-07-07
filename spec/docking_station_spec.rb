@@ -1,4 +1,5 @@
 require 'docking_station'
+require 'bike'
 require 'garage'
 
 describe DockingStation do
@@ -11,8 +12,6 @@ describe DockingStation do
   it { is_expected.to respond_to :release_bike }
 
   it { is_expected.to respond_to(:dock).with(1).argument }
-
-  it { is_expected.to respond_to(:report_broken_bikes_to_garage).with(1).argument }
 
   describe '#release_bike' do
 
@@ -77,17 +76,14 @@ describe DockingStation do
     end
   end
 
-  describe '#report_broken_bikes' do
-    it 'report broken bikes' do
-      2.times do
-        allow(bike).to receive_message_chain(:report_broken, :working) {false}
-        bike.report_broken
-        subject.dock(bike)
-      end
-      allow(bike).to receive(:working?).and_return(false)
-      garage = Garage.new
-      subject.report_broken_bikes_to_garage(garage)
-      expect(garage.broken_bikes_report[subject]).to eq 2
+  describe '#dispatch_broken_bikes' do
+    it 'can dispatch broken bikes' do
+      #To be refactored to use doubles
+      bike = Bike.new
+      bike.report_broken
+      subject.dock(bike)
+      van = Van.new
+      expect(subject.dispatch_broken_bikes(van)).to eq [bike]
     end
   end
 
