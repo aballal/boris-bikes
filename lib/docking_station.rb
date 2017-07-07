@@ -22,7 +22,7 @@ class DockingStation
     bikes << bike
   end
 
-  def dispatch_broken_bikes(van)
+  def dispatch_broken_bikes
     broken_bikes = []
     bikes.each.with_index {|bike,i| broken_bikes << bikes.delete_at(i) unless bike.working?}
     broken_bikes

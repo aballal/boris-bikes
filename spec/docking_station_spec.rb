@@ -9,9 +9,9 @@ describe DockingStation do
 
   it { is_expected.to respond_to(:capacity) }
 
-  it { is_expected.to respond_to :release_bike }
+  it { is_expected.to respond_to(:release_bike) }
 
-  it { is_expected.to respond_to(:dock).with(1).argument }
+  it { is_expected.to respond_to(:dock)}
 
   describe '#release_bike' do
 
@@ -79,11 +79,16 @@ describe DockingStation do
   describe '#dispatch_broken_bikes' do
     it 'can dispatch broken bikes' do
       #To be refactored to use doubles
-      bike = Bike.new
-      bike.report_broken
-      subject.dock(bike)
-      van = Van.new
-      expect(subject.dispatch_broken_bikes(van)).to eq [bike]
+      broken_bikes = []
+      5.times do |i|
+        bike = Bike.new
+        if (i == 2 || i == 4)   #Bikes 0,1,3 are working; Bikes 2 and 4 are broken
+          bike.report_broken
+          broken_bikes << bike
+        end
+        subject.dock(bike)
+      end
+      expect(subject.dispatch_broken_bikes).to eq broken_bikes
     end
   end
 
